@@ -9,9 +9,9 @@
         "phpunit/phpunit": "~4.4"
     },
     "authors": [
-        {'name' : 'Conny Brunnkvist'},
-        {'name' : 'Allan Simon'}
-    ]
+        {"name" : "Conny Brunnkvist"},
+        {"name" : "Allan Simon"}
+    ],
     "autoload": {
         "psr-0": { "AllanSimon\\TestHelpers": "" }
     },
