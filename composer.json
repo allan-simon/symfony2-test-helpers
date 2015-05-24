@@ -1,0 +1,19 @@
+{
+    "name": "allan-simon/functionnal-test-helpers",
+    "license": "MIT",
+    "description": "A suite of helpers traits to help you writing functionnal tests with phpunit for symfony2",
+    "type": "library",
+    "keywords": ["testing", "test", "symfony2", "traits", "phpunit"],
+    "require": {
+        "php": ">=5.4.0",
+        "phpunit/phpunit": "~4.4"
+    },
+    "authors": [
+        {'name' : 'Conny Brunnkvist'},
+        {'name' : 'Allan Simon'}
+    ]
+    "autoload": {
+        "psr-0": { "AllanSimon\\TestHelpers": "" }
+    },
+    "target-dir" : "AllanSimon/TestHelpers"
+}
