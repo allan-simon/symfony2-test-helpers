@@ -135,6 +135,11 @@ trait ApiHelpersTrait
         $this->assertJsonResponse($this->response, 404, false);
     }
 
+    private function assertResponseUnprocessableEntity()
+    {
+        $this->assertJsonResponse($this->response, 422, false);
+    }
+
     private function assertNoContentResponse()
     {
         $this->assertJsonResponse($this->response, 204, false);
