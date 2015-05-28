@@ -65,17 +65,7 @@ class AnalystControllerTest extends WebTestCase
         $this->performGetAnalystsWithoutSort();
         $this->assertBadRequestError();
     }
-
-    // conveniency functions
-    private function performGetAnalystsWithoutSort()
-    {
-        $this->response = $this->performClientRequest(
-            'GET',
-            '/api/analysts'
-        );
-        $this->assignJsonFromResponse();
-    }
-
+    
     public function testGetAnalystsWithdValidSortReturnListAnalysts()
     {
         //TODO replace by phpunit stuff to feed with data
@@ -88,6 +78,18 @@ class AnalystControllerTest extends WebTestCase
             );
         }
     }
+
+    // conveniency functions
+    private function performGetAnalystsWithoutSort()
+    {
+        $this->response = $this->performClientRequest(
+            'GET',
+            '/api/analysts'
+        );
+        $this->assignJsonFromResponse();
+    }
+
+
 
 
     private function performGetAnalystsWithSort($sort)
