@@ -194,7 +194,7 @@ trait ApiHelpersTrait
     {
         foreach ($this->responseJson as $object) {
             $this->assertArrayHasKeys(
-                self::$TOPIC_FIELDS,
+                $fields,
                 $object
             );
         }
