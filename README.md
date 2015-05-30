@@ -71,6 +71,8 @@ all these assets use the property `$this->responseJson`, which is populated by
 
  * `assertEmptyList` , check the json returned by a `perform*` is a json Array with 0 element
  * `assertNotEmptyList` , check the json returned by a `perform*`is a json Array with 1+ element
+ * `assertResponseHasFields(array $fields)` check that the json returned is a json object made of at least the fields given in parameters
+ * `assertListElementsHaveFields(array $fields)` check the json is an array for which every single element contains at least the given fields
 
 ## Usage For REST Api
 

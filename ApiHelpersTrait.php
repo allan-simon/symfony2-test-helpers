@@ -173,11 +173,38 @@ trait ApiHelpersTrait
         $this->entityName = $fixtureName;
     }
 
+    /**
+     *
+     */
+    protected function refreshEntity()
+    {
+        $this->em->refresh($this->entity);
+    }
+
+
     private function assignJsonFromResponse()
     {
         $this->responseJson = json_decode(
             $this->response->getContent(),
             true
+        );
+    }
+
+    protected function assertListElementsHaveFields(array $fields)
+    {
+        foreach ($this->responseJson as $object) {
+            $this->assertArrayHasKeys(
+                self::$TOPIC_FIELDS,
+                $object
+            );
+        }
+    }
+
+    protected function assertResponseHasFields(array $fields)
+    {
+        $this->assertArrayHasKeys(
+            $fields,
+            $this->responseJson
         );
     }
 
