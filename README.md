@@ -64,7 +64,7 @@ is json, the decoded content will in `$this->responseJson`
   * `assertOkSuccess()` => 200
   * `assertCreatedSuccess()` => 201
   * `assertNoContentResponse()` => 203
-`
+
 #### Assert JSON returned
 
 all these assets use the property `$this->responseJson`, which is populated by
