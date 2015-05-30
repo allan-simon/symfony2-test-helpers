@@ -28,6 +28,50 @@ A more complete documentation is to come, waiting for that one can directly chec
 the code, which has been made to be as clear as possible, if you got any specific
 question, you can open a ticket, we're quite fast to answer.
 
+
+### For ApiHelpersTrait
+
+For the moment the Api go with the assumption that except for binary data (images etc.), you want to
+send and receive JSON encoded data
+
+#### Perform requests
+
+all these methods perform the request using `$this->client` and it's your responsability
+(for the moment) to create it to fit your needs
+
+Once the Request is performed, the raw response is assigned in `$this->response` if the content
+is json, the decoded content will in `$this->responseJson`
+
+  * `performGET(string $uri)` GET request to $uri
+  * `performDELETE($string $uri)` DELETE request to $uri
+  * `performPOSt(string $uri, array $data)` json_encode the $data and POST it to the URI
+  * `performPUT(string $uri, array $data)` json_encode the $data and PUT it to the URI
+  * `performPATCH(string $uri, array $data)` json_encode the $data and PATCH it to the URI
+
+#### Methods to play with data fixtures
+
+  * `given(string $fixtureName)` , load the entity referenced by $fixtureName and set it in $this->entity
+  * `refreshEntiy()`,  resync/refresh the entity in `$this->entity` with the database
+
+#### Assert HTTP status code
+`
+  * `assertBadRequestError()` => 400
+  * `assertPermissionError()` => 401
+  * `assertPermissionDenied()` => 403
+  * `assertNotFoundError()` => 404
+  * `assertResponseUnprocessableEntity()` => 422
+
+  * `assertOkSuccess()` => 200
+  * `assertCreatedSuccess()` => 201
+  * `assertNoContentResponse()` => 203
+`
+#### Assert JSON returned
+
+all these assets use the property `$this->responseJson`, which is populated by
+
+ * `assertEmptyList` , check the json returned by a `perform*` is a json Array with 0 element
+ * `assertNotEmptyList` , check the json returned by a `perform*`is a json Array with 1+ element
+
 ## Usage For REST Api
 
 ```php

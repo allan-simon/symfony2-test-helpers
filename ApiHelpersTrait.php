@@ -9,6 +9,8 @@ trait ApiHelpersTrait
     use ClosesConnectionsAfterTestTrait;
     use ReflectsAndCleansPropertiesAfterTestTrait;
 
+    protected $entity = null;
+    protected $entityName = null;
     protected $responseJson = null;
     protected $response = null;
 
@@ -33,6 +35,69 @@ trait ApiHelpersTrait
 
         return $this->client->getResponse();
     }
+
+    //TODO duplicated code between PUT/POST/PATCH
+
+    protected function performPATCH($uri, array $data)
+    {
+        $jsonHeaders = ['CONTENT_TYPE' => 'application/json'];
+        $jsonBody = json_encode($data);
+
+        $this->response = $this->performClientRequest(
+            'PUT',
+            $uri,
+            $jsonHeaders,
+            $jsonBody
+        );
+        $this->assignJsonFromResponse();
+    }
+
+    protected function performPUT($uri, array $data)
+    {
+        $jsonHeaders = ['CONTENT_TYPE' => 'application/json'];
+        $jsonBody = json_encode($data);
+
+        $this->response = $this->performClientRequest(
+            'PUT',
+            $uri,
+            $jsonHeaders,
+            $jsonBody
+        );
+        $this->assignJsonFromResponse();
+    }
+
+    protected function performPOST($uri, array $data)
+    {
+        $jsonHeaders = ['CONTENT_TYPE' => 'application/json'];
+        $jsonBody = json_encode($data);
+
+        $this->response = $this->performClientRequest(
+            'POST',
+            $uri,
+            $jsonHeaders,
+            $jsonBody
+        );
+        $this->assignJsonFromResponse();
+    }
+
+    protected function performGET($uri)
+    {
+        $this->response = $this->performClientRequest(
+            'GET',
+            $uri
+        );
+        $this->assignJsonFromResponse();
+    }
+
+    protected function performDELETE($uri)
+    {
+        $this->response = $this->performClientRequest(
+            'DELETE',
+            $uri
+        );
+        $this->assignJsonFromResponse();
+    }
+
 
     /**
      * Perform an HTTP request with a Bearer token in the HTTP authorization header.
@@ -99,11 +164,37 @@ trait ApiHelpersTrait
         );
     }
 
+    /**
+     * Used to load a fixture's entity using its reference name
+     */
+    private function given($fixtureName)
+    {
+        $this->entity = $this->fixtures->getReference($fixtureName);
+        $this->entityName = $fixtureName;
+    }
+
     private function assignJsonFromResponse()
     {
         $this->responseJson = json_decode(
             $this->response->getContent(),
             true
+        );
+    }
+
+    private function assertEmptyList()
+    {
+        $this->assertCount(
+            0,
+            $this->responseJson,
+            'The list should be empty'
+        );
+    }
+    private function assertNotEmptyList()
+    {
+        $this->assertNotCount(
+            0,
+            $this->responseJson,
+            'The list should not be empty'
         );
     }
 
