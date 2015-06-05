@@ -125,14 +125,10 @@ class AnalystControllerTest extends WebTestCase
         }
     }
 
-    // conveniency functions
+    // convenience functions
     private function performGetAnalystsWithoutSort()
     {
-        $this->response = $this->performClientRequest(
-            'GET',
-            '/api/analysts'
-        );
-        $this->assignJsonFromResponse();
+        $this->performGET('/api/analysts');
     }
 
 
@@ -140,11 +136,7 @@ class AnalystControllerTest extends WebTestCase
 
     private function performGetAnalystsWithSort($sort)
     {
-        $this->response = $this->performClientRequest(
-            'GET',
-            '/api/analysts?sort='.$sort
-        );
-        $this->assignJsonFromResponse();
+        $this->performClientRequest('/api/analysts?sort='.$sort)
     }
 }
 
