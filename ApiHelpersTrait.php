@@ -102,7 +102,7 @@ trait ApiHelpersTrait
     /**
      * Perform an HTTP request with a Bearer token in the HTTP authorization header.
      */
-    private function performAuthenticatedClientRequest($method, $urlPath, $username = null)
+    protected function performAuthenticatedClientRequest($method, $urlPath, $username = null)
     {
         $username = $username ?: $this->authAsUser;
         $this->client = static::createClient(
@@ -152,7 +152,7 @@ trait ApiHelpersTrait
         }
     }
 
-    private function givenLoggedInAs($username)
+    protected function givenLoggedInAs($username)
     {
         $this->currentUser = $username;
         $this->client = static::createClient(
@@ -167,7 +167,7 @@ trait ApiHelpersTrait
     /**
      * Used to load a fixture's entity using its reference name
      */
-    private function given($fixtureName)
+    protected function given($fixtureName)
     {
         $this->entity = $this->fixtures->getReference($fixtureName);
         $this->entityName = $fixtureName;
@@ -182,7 +182,7 @@ trait ApiHelpersTrait
     }
 
 
-    private function assignJsonFromResponse()
+    protected function assignJsonFromResponse()
     {
         $this->responseJson = json_decode(
             $this->response->getContent(),
@@ -208,7 +208,7 @@ trait ApiHelpersTrait
         );
     }
 
-    private function assertEmptyList()
+    protected function assertEmptyList()
     {
         $this->assertCount(
             0,
@@ -216,7 +216,8 @@ trait ApiHelpersTrait
             'The list should be empty'
         );
     }
-    private function assertNotEmptyList()
+
+    protected function assertNotEmptyList()
     {
         $this->assertNotCount(
             0,
@@ -238,47 +239,47 @@ trait ApiHelpersTrait
         }
     }
 
-    private function assertPermissionError()
+    protected function assertPermissionError()
     {
         $this->assertJsonResponse($this->response, 401, false);
     }
 
-    private function assertPermissionDenied()
+    protected function assertPermissionDenied()
     {
         $this->assertJsonResponse($this->response, 403, false);
     }
 
-    private function assertNotFoundError()
+    protected function assertNotFoundError()
     {
         $this->assertJsonResponse($this->response, 404, false);
     }
 
-    private function assertResponseUnprocessableEntity()
+    protected function assertResponseUnprocessableEntity()
     {
         $this->assertJsonResponse($this->response, 422, false);
     }
 
-    private function assertNoContentResponse()
+    protected function assertNoContentResponse()
     {
         $this->assertJsonResponse($this->response, 204, false);
     }
 
-    private function assertBadRequestError()
+    protected function assertBadRequestError()
     {
         $this->assertJsonResponse($this->response, 400, false);
     }
 
-    private function assertCreatedSuccess()
+    protected function assertCreatedSuccess()
     {
         $this->assertJsonResponse($this->response, 201, false);
     }
 
-    private function assertOkSuccess()
+    protected function assertOkSuccess()
     {
         $this->assertJsonResponse($this->response, 200, false);
     }
 
-    private function assertOutputIsImage(File $image)
+    protected function assertOutputIsImage(File $image)
     {
         $this->assertEquals(200, $this->response->getStatusCode());
         $this->expectOutputString(
