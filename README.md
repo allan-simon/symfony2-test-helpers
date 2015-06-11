@@ -108,7 +108,7 @@ class AnalystControllerTest extends WebTestCase
 
     public function testGetAnalystsWithoutSortReturnBadParameter()
     {
-        $this->performGetAnalystsWithoutSort();
+        $this->performGET('/api/analysts');
         $this->assertBadRequestError();
     }
     
@@ -116,35 +116,13 @@ class AnalystControllerTest extends WebTestCase
     {
         //TODO replace by phpunit stuff to feed with data
         foreach (['hot', 'recommended', 'newest'] as $validSort) {
-            $this->performGetAnalystsWithSort($validSort);
+            $this->performGET('/api/analysts?sort='.$sort)
             $this->assertOkSuccess();
             $this->assertArrayHasKeys(
                 self::$ANALYST_FIELDS,
                 $this->responseJson[0]
             );
         }
-    }
-
-    // conveniency functions
-    private function performGetAnalystsWithoutSort()
-    {
-        $this->response = $this->performClientRequest(
-            'GET',
-            '/api/analysts'
-        );
-        $this->assignJsonFromResponse();
-    }
-
-
-
-
-    private function performGetAnalystsWithSort($sort)
-    {
-        $this->response = $this->performClientRequest(
-            'GET',
-            '/api/analysts?sort='.$sort
-        );
-        $this->assignJsonFromResponse();
     }
 }
 
