@@ -44,7 +44,7 @@ trait ApiHelpersTrait
         $jsonBody = json_encode($data);
 
         $this->response = $this->performClientRequest(
-            'PUT',
+            'PATCH',
             $uri,
             $jsonHeaders,
             $jsonBody
