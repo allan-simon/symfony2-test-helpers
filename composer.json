@@ -6,7 +6,7 @@
     "keywords": ["testing", "test", "symfony2", "traits", "phpunit"],
     "require": {
         "php": ">=5.4.0",
-        "phpunit/phpunit": "~4.4"
+        "phpunit/phpunit": "~4.4|~5.4"
     },
     "authors": [
         {"name" : "Conny Brunnkvist"},
